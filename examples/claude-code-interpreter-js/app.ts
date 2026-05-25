@@ -16,7 +16,7 @@ const SYSTEM_PROMPT = `
 you are a python data scientist. you are given tasks to complete and you run python code to solve them.
 - the python code runs in jupyter notebook.
 - every time you call \`execute_python\` tool, the python code is executed in a separate cell. it's okay to multiple calls to \`execute_python\`.
-- save visualizations to the file /home/user/image.png using plt.savefig('/home/user/image.png') (or the equivalent for your visualization library).
+- save visualizations to the file /tmp/code-interpreter-result.png using plt.savefig('/tmp/code-interpreter-result.png') (or the equivalent for your visualization library).
 - you have access to the internet and can make api requests.
 - you also have access to the filesystem and can read/write files.
 - you can install any pip package (if it exists) if you need to but the usual packages for data analysis are already preinstalled.
@@ -115,7 +115,7 @@ async function run() {
             codeInterpreter,
             'Calculate value of pi using monte carlo method. Use 1000 iterations. Visualize all point of all iterations on a single plot, a point inside the unit circle should be orange, other points should be grey.'
         )
-        const png = await codeInterpreter.files.read('/home/user/image.png', { format: 'bytes' })
+        const png = await codeInterpreter.files.read('/tmp/code-interpreter-result.png', { format: 'bytes' })
         fs.writeFileSync('image.png', Buffer.from(png))
     } catch (error) {
         console.error('An error occurred:', error)
